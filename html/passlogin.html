@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tugas 3 - 05111840000080</title>
+</head>
+<body>
+    <h2>Enter Password</h2>
+    <p id="alertPar"></p>
+	<br/>
+    <table>
+        <tr>
+            <td>Password</td>
+            <td>:</td>
+            <td><input id="passField" type="password" name="username" placeholder="Masukkan password"></td>
+        </tr>
+        <tr id="passField2Cont" style="display: none;">
+            <td>Confirm Password</td>
+            <td>:</td>
+            <td><input id="passField2" type="password" name="username" placeholder="Masukkan password"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><input type="submit" onclick="submitClicked()" value="SUBMIT"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><a href="../php/logout.php">USE ANOTHER ACCOUNT</a></td>
+        </tr>
+    </table>		
+
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        var user = "<?php echo $_SESSION['username']; ?>";
+        console.log(user);
+
+        var realPass = "<?php echo $_SESSION['password']; ?>";
+        var passField = document.getElementById("passField");
+        var ap = document.getElementById("alertPar");
+        console.log(realPass);
+        var passField2 = document.getElementById("passField2");
+
+        var pf2 = document.getElementById("passField2Cont");
+        if(realPass == "")
+        {
+            pf2.style.display = "table-row";
+        }
+        else pf2.style.display = "none";
+
+        var adminFlag = "<?php echo $_SESSION['status']; ?>";
+        console.log(adminFlag);
+
+        function submitClicked(){
+            if(realPass != "")
+            {
+                if(passField.value == realPass)
+                {
+                    window.location.replace("userDashboard.php");
+                }
+                else {
+                    ap.innerHTML = "Wrong Password";
+                    console.log("wrong pw");
+                }
+            }
+            else
+            {
+                if(passField.value == passField2.value)
+                {
+                    $.ajax({
+                        type: "POST",
+                        url: "storesession.php",
+                        data: {username: user, password: passField.value, status: "0"}
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "addaccount.php",
+                        data: {username: user, password: passField.value, status: "0"}
+                    });
+
+                    window.location.replace("addaccount.php");
+                }
+                else
+                    alert("Confirm password should be the same. " + passField.value + " " + passField2.value);
+            }
+        }
+    </script>
+</body>
+</html>

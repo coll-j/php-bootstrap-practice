@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tugas 3 - 05111840000080</title>
+</head>
+<body>
+	<h2>Enter Username</h2>
+    <!-- cek pesan notifikasi -->
+	<?php 
+	if(isset($_GET['pesan'])){
+		if($_GET['pesan'] == "gagal"){
+			echo "Username not found. Sign up for free.";
+		}else if($_GET['pesan'] == "logout"){
+			echo "Anda telah berhasil logout";
+		}else if($_GET['pesan'] == "belum_login"){
+			echo "Anda harus login untuk mengakses halaman admin";
+		}
+    }
+
+    $username = (isset($_GET['user']))? $_GET['user'] : "";
+	?>
+    <p id="msg"></p>
+	<form method="post" action="login.php">
+		<table>
+			<tr>
+				<td>Username</td>
+				<td>:</td>
+				<td><input id="uname" type="text" name="username" placeholder="Masukkan username"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td><input type="submit" value="LOGIN"></td>
+            </tr>
+            <tr>
+				<td></td>
+				<td></td>
+				<td><button type="button" onclick="signUpClicked()">SIGN UP</button></td>
+			</tr>
+		</table>			
+    </form>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        var user = "<?php echo $username; ?>";
+        var usernameField = document.getElementById("uname");
+        var msg = document.getElementById("msg");
+        usernameField.value = user;
+
+        function signUpClicked(){
+            user = usernameField.value;
+            if(user == ""){
+                msg.innerHTML = "Username can't be blank.";
+                return;
+            }
+            
+            $.ajax({
+                type: "POST",
+                url: "pass.php",
+                data: {username: user}
+            });
+
+            window.location.replace("pass.php");
+        }
+    </script>
+</body>
+</html>
