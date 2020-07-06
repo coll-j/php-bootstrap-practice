@@ -16,7 +16,7 @@ $cek = mysqli_num_rows($data);
 if($cek > 0){
     $user = $data->fetch_assoc();
     $_SESSION['username'] = $username;
-    $_SESSION['password'] = $user["password"];
+    $_SESSION['password'] = $user["pass"];
     $_SESSION['status'] = $user["admin_flag"];
     header("location:pass.php");
 }else{
