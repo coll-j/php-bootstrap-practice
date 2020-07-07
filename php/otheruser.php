@@ -11,30 +11,23 @@ session_start();
 
 include 'config.php';
 
-$user = $_SESSION['username'];
+$user = $_POST['username'];
 $data = $conn->query("select * from usersdata where username='$user'");
 $result = mysqli_fetch_array($data);
 
-include("../html/dashboard/home.html");
+include("../html/dashboard/otheruser.html");
 
 ?>
 <script type="text/javascript">
+    var uname = "<?php echo $result['username']; ?>";
     var fn = "<?php echo $result['first_name']; ?>";
     var ln = "<?php echo $result['last_name']; ?>";
     var bp = "<?php echo $result['birth_place']; ?>";
     var bd = "<?php echo $result['birth_date']; ?>";
     var mbti = "<?php echo $result['mbti']; ?>" 
 
-    var profile = {
-        "first_name": fn,
-        "last_name": ln,
-        "birth_place": bp,
-        "birth_date": bd,
-        "mbti": mbti
-    };
-
-    localStorage.setItem('profile_info', JSON.stringify(profile));
-
+    console.log("<?php echo $user; ?>");
+    document.getElementById("myHeader").innerHTML = uname + "'s Profile";
     document.getElementById("fn").innerHTML = "First name: " + fn;
     document.getElementById("ln").innerHTML = "Last name: " + ln;
     document.getElementById("bp").innerHTML = "Birth place: " + bp;
