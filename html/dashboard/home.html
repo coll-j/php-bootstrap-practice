@@ -127,7 +127,7 @@
                 <h4 class="p-2" id="bd">Birth date:</h4>
                 <h4 class="p-2" id="mbti">MBTI:</h4>
                 <a class="d-block pl-2" href="https://www.16personalities.com/" target="_blank">Take 16 personalities test</a>
-                <button class="btn btn-success mt-3 ml-2">Edit</button>
+                <button class="btn btn-success mt-3 ml-2" onclick="editClicked()">Edit</button>
             </div>
         </div>
         <div class="h-100 w-100">
@@ -175,6 +175,11 @@
             user.classList.add("mt-1");
 
             table.appendChild(user);
+        }
+
+        //functions
+        function editClicked(){
+            window.location.replace("editprofile.php");
         }
 
         function filterFunction(){
