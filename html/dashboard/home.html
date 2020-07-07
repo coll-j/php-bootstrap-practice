@@ -43,12 +43,37 @@
             font-size: 36px;
         }
 
+        .block {
+            text-align: center;
+
+            /* May want to do this if there is risk the container may be narrower than the element inside */
+            white-space: nowrap;
+        }
+        
+        /* The ghost, nudged to maintain perfect centering */
+        .block:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            /* margin-right: -0.25em; Adjusts for spacing */
+        }
     </style>
 </head>
 <body>
-    <div id="mySidepanel" class="sidepanel d-flex justify-content-center">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <div id="searchSidepanel" class="sidepanel d-flex justify-content-center">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSearchNav()">×</a>
         <input class="form-control w-75" type="text" placeholder="Search username">
+    </div>
+    <div id="adminSidepanel" class="sidepanel">
+        <div class="d-flex justify-content-center">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeAdminNav()">×</a>
+            <h3 class="text-success">Admin</h3>
+        </div>
+        <div class="float-left">
+            <a class="nav-link" href="#">Personel</a>
+            <a class="nav-link" href="#">Inbox</a>
+        </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +96,7 @@
               </li>
             </ul>
             <div class="div-inline">
-              <button class="btn btn-default" type="button" style="outline: none; border: none;" onclick="openNav()">
+              <button class="btn btn-default" type="button" style="outline: none; border: none;" onclick="openSearchNav()">
                   <img id="search-icon" src="../assets/search-black-18dp.svg" width="25px" height="25px" 
                   onmouseover="iconHover(this)" onmouseout="iconUnhover(this)">
               </button>
@@ -83,24 +108,30 @@
             </div>
           </div>
     </nav>
-    <div class="container-fluid bg-light" style="height: 100%; position: fixed;">
+    <div class="container-fluid bg-light p-0" style="height: 100%; position: fixed;">
         <div class="container h-100 float-left" style="width: 85%;">
             <h1 class="display-3 mb-5">Zapraszamy!</h1>
             <div class="d-inline" style="margin-right: 30px;">
                 <img src="../assets/profile-Icon.png" width="30%" class="rounded-circle d-inline" style="border: 5px solid black">
             </div>
             <div class="d-inline-block align-middle" style="margin-inline-start: 30px;">
-                <h4 class="p-2">First name:</h4>
-                <h4 class="p-2">Last name:</h4>
-                <h4 class="p-2">Birth place:</h4>
-                <h4 class="p-2">Birth date:</h4>
-                <h4 class="p-2">MBTI:</h4>
+                <h4 class="p-2" id="fn">First name:</h4>
+                <h4 class="p-2" id="ln">Last name:</h4>
+                <h4 class="p-2" id="bp">Birth place:</h4>
+                <h4 class="p-2" id="bd">Birth date:</h4>
+                <h4 class="p-2" id="mbti">MBTI:</h4>
+                <a class="d-block pl-2" href="https://www.16personalities.com/" target="_blank">Take 16 personalities test</a>
                 <button class="btn btn-success mt-3 ml-2">Edit</button>
             </div>
         </div>
-        <div class="float-left h-100">
-            <p style="color: red; padding: 0; margin: 0;">&#8226 Profile data isn't filled yet</p>
-            <p style="color: red; padding: 0; margin: 0;">&#8226 0 unread Inbox</p>
+        <div class="h-100 w-100">
+            <div class="float-left">
+                <p style="color: red; padding: 0; margin: 0;">&#8226 Profile data isn't filled yet</p>
+                <p style="color: red; padding: 0; margin: 0;">&#8226 0 unread Inbox</p>
+            </div>
+            <div class="float-right block h-75" id="admin-button" style="display: none;">
+                <button class="btn btn-success m-0" style="border-radius: 9999em 0 0 9999em;" onclick="openAdminNav()"> &#171 </button>
+            </div>
         </div>
     </div>
     
@@ -109,6 +140,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
  
+    <script type="text/javascript" src="../js/users.js"></script>
     <script type="text/javascript">
         $('.nav-item').on("click", function(){
             $('.nav-item').removeClass('active');
@@ -116,6 +148,19 @@
             $(this).addClass('active');
             $(this).children().addClass('text-success');
         });
+
+        var adminSidePanel = document.getElementById("adminSidepanel");
+        var searchSidepanel = document.getElementById("searchSidepanel");
+        var admin_button = document.getElementById("admin-button");
+        
+        var detail = JSON.parse(localStorage.getItem('detail'));
+        var admin_flag = detail['admin_flag'];
+
+        if(admin_flag == 0)
+            admin_button.style.display = "none";
+        else
+            admin_button.style.display = "block";
+        
         function logOutClicked(){
             window.location.replace("logout.php");
         }
@@ -142,12 +187,20 @@
             }
         }
 
-        function openNav() {
-            document.getElementById("mySidepanel").style.width = "250px";
+        function openSearchNav() {
+            searchSidepanel.style.width = "250px";
         }
 
-        function closeNav() {
-            document.getElementById("mySidepanel").style.width = "0";
+        function closeSearchNav() {
+            searchSidepanel.style.width = "0";
+        }
+
+        function openAdminNav() {
+            adminSidePanel.style.width = "250px";
+        }
+
+        function closeAdminNav() {
+            adminSidePanel.style.width = "0";
         }
     </script>
 </body>
