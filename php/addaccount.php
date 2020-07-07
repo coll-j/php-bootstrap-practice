@@ -9,7 +9,7 @@ if(isset($_SESSION["password"]) && $_SESSION["password"] != "")
     $query = $conn->query($sql);
 
     if( $query ) {
-        header("location:userDashboard.php");
+        header("location:home.php");
     }
     else{
         die("something went wrong.");

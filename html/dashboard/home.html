@@ -63,9 +63,13 @@
 <body>
     <div id="searchSidepanel" class="sidepanel d-flex justify-content-center">
         <a href="javascript:void(0)" class="closebtn" onclick="closeSearchNav()">×</a>
-        <form method="POST" action="otheruser.php">
-            <input class="form-control w-75" type="text" name="username" placeholder="Search username">
-        </form>
+        <div class="w-100">
+            <form method="GET" action="otheruser.php" name="searchform">
+                <input class="form-control w-100" type="text" autocomplete="off" onkeyup="filterFunction()" name="username" placeholder="Search username">
+                <div class="container-fluid m-0 p-0" id="usersList">
+                </div>
+            </form>
+        </div>
     </div>
     <div id="adminSidepanel" class="sidepanel">
         <div class="d-flex justify-content-center">
@@ -73,7 +77,7 @@
             <h3 class="text-success">Admin</h3>
         </div>
         <div class="float-left">
-            <a class="nav-link" href="#">Personel</a>
+            <a class="nav-link" href="#">Personnel</a>
             <a class="nav-link" href="#">Inbox</a>
         </div>
     </div>
@@ -85,7 +89,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link text-success" href="#">Home</a>
+                <a class="nav-link text-success" href="home.php">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Edit Profile</a>
@@ -150,6 +154,50 @@
             $(this).addClass('active');
             $(this).children().addClass('text-success');
         });
+
+        var users = JSON.parse(localStorage.getItem('profiles'));
+        var maxLength = (users.length > 10)? users.length : users.length;
+        var table = document.getElementById("usersList");
+        for(let i = 0; i < maxLength; i++)
+        {
+            let user = document.createElement("button");
+            user.type = "button";
+            user.value = users[i];
+            user.name = users[i];
+            user.innerHTML = users[i];
+            user.onclick = function(){
+                document.searchform.username.value = this.innerHTML;
+                document.searchform.submit();
+            };
+            user.classList.add("btn");
+            user.classList.add("btn-success");
+            user.classList.add("w-100");
+            user.classList.add("mt-1");
+
+            table.appendChild(user);
+        }
+
+        function filterFunction(){
+            var input, filter;
+            input = document.getElementsByName("username");
+            filter = input[0].value.toUpperCase();
+            var usersList = document.getElementById("usersList").children;
+            for(let i = 0; i < usersList.length; i++)
+            {
+                if(usersList[i].innerHTML.toUpperCase().indexOf(filter) > -1)
+                {
+                    console.log("ada");
+                    usersList[i].style.display = "";
+                }
+                else
+                {
+                    console.log("gaada");
+                    usersList[i].style.display = "none";
+                    // console.log(usersList[i].style.display);
+                }
+            }
+            console.log(usersList[1].style.display);
+        }
 
         var adminSidePanel = document.getElementById("adminSidepanel");
         var searchSidepanel = document.getElementById("searchSidepanel");

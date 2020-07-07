@@ -53,7 +53,7 @@
             {
                 if(passField.value == realPass)
                 {
-                    window.location.replace("userDashboard.php");
+                    window.location.replace("home.php");
                 }
                 else {
                     ap.innerHTML = "Wrong Password";
@@ -66,6 +66,7 @@
                     "admin_flag": adminFlag
                 };
 
+                // document.cookie = JSON.stringify(detail);
                 localStorage.setItem('detail', JSON.stringify(detail));
             }
             else
@@ -94,7 +95,7 @@
                     "password": passField.value,
                     "admin_flag": 0
                 };
-
+                // document.cookie = JSON.stringify(detail);
                 localStorage.setItem('detail', JSON.stringify(detail));
             }
         }

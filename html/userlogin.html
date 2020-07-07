@@ -16,7 +16,7 @@
 	<div class="container w-50" style="margin-top: 15%;">
 		<h1 class="d-flex justify-content-center display-4 text-light">Enter Username</h1>
 		<p class="d-flex justify-content-center text-light" id="msg"></p>
-		<form method="post" action="login.php">
+		<form method="post" action="login.php" name="usernameform" id="usernameform">
 			<div class="form-group d-flex justify-content-center">
 				<input class="form-control w-50" id="uname" type="text" name="username" placeholder="Enter username">
 			</div>
@@ -50,14 +50,17 @@
                 msg.innerHTML = "Username can't be blank.";
                 return;
             }
-            
-            $.ajax({
-                type: "POST",
-                url: "pass.php",
-                data: {username: user}
-            });
+			
+			document.usernameform.action = "pass.php";
+			document.getElementById("usernameform").submit();
+			
+            // $.ajax({
+            //     type: "POST",
+            //     url: "pass.php",
+            //     data: {username: user}
+            // });
 
-            window.location.replace("pass.php");
+            // window.location.replace("pass.php");
         }
     </script>
 </body>
