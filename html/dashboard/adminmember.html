@@ -94,11 +94,11 @@
             </button>
             </div>
             <div class="modal-body">
-            Remove <span class="text-danger"></span> from admin?
+            Remove <span id="removespan" class="text-danger"></span> from admin?
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" onclick="removeAdmin()">Delete Account</button>
+            <button type="button" class="btn btn-danger" onclick="removeAdmin()">Remove</button>
             </div>
         </div>
         </div>
@@ -192,14 +192,12 @@
             lnamecell.innerHTML = admins[i].last_name;
 
             var rmButton = document.createElement("span");
-            rmButton.innerHTML = '<button class="btn btn-danger" name="' + admins[i].username +'" onclick="removeAdmin(this)">Remove</button>';
+            rmButton.innerHTML = '<button class="btn btn-danger" name="' + admins[i].username +'" onclick="changeRemoveSpan(this)" data-toggle="modal" data-target="#noticeModal">Remove</button>';
             console.log(rmButton.innerHTML);
             removecell.appendChild(rmButton);
         }
 
-        function removeAdmin(element){
-            window.location.replace("removeadmin.php?admin=" + element.name);
-        }
+        
         var users = JSON.parse(localStorage.getItem('profiles'));
         var maxLength = (users.length > 10)? users.length : users.length;
         var userTable = document.getElementById("usersList");
@@ -218,11 +216,19 @@
             user.classList.add("btn-success");
             user.classList.add("w-100");
             user.classList.add("mt-1");
-
+            
             userTable.appendChild(user);
         }
-
+        
         //functions
+        function changeRemoveSpan(element){
+            document.getElementById("removespan").innerHTML = element.name;
+        }
+
+        function removeAdmin(){
+            window.location.replace("removeadmin.php?admin=" + document.getElementById("removespan").innerHTML);
+        }
+
         function filterFunction(){
             var input, filter;
             input = document.getElementsByName("username");

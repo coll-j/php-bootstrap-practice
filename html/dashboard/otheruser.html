@@ -58,6 +58,10 @@
             vertical-align: middle;
             /* margin-right: -0.25em; Adjusts for spacing */
         }
+
+        .admin-button{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -127,7 +131,9 @@
                 <h4 class="p-2" id="bd">Birth date:</h4>
                 <h4 class="p-2" id="mbti">MBTI:</h4>
                 <a class="pl-2" style="display: none;" href="https://www.16personalities.com/" target="_blank">Take 16 personalities test</a>
-                <button class="btn btn-success mt-3 ml-2" style="display: none;">Edit</button>
+                <button class="btn btn-success mt-3 ml-2 admin-button" onclick="editClicked()">Edit</button>
+                <button class="btn btn-danger mt-3 ml-2 admin-button">Delete Account</button>
+                <button class="btn btn-primary mt-3 ml-2 admin-button">Add to Admin</button>
             </div>
         </div>
         <div class="h-100 w-100">
@@ -135,7 +141,7 @@
                 <p style="color: red; padding: 0; margin: 0; display: none;" id="unfilled">&#8226 Your profile data isn't filled yet</p>
                 <p style="color: red; padding: 0; margin: 0;">&#8226 0 unread Inbox</p>
             </div>
-            <div class="float-right block h-75" id="admin-button" style="display: none;">
+            <div class="float-right block h-75 admin-button" >
                 <button class="btn btn-success m-0" style="border-radius: 9999em 0 0 9999em;" onclick="openAdminNav()"> &#171 </button>
             </div>
         </div>
@@ -201,7 +207,7 @@
 
         var adminSidePanel = document.getElementById("adminSidepanel");
         var searchSidepanel = document.getElementById("searchSidepanel");
-        var admin_button = document.getElementById("admin-button");
+        var admin_buttons = document.getElementsByClassName("admin-button");
         
         var detail = JSON.parse(localStorage.getItem('detail'));
         var admin_flag = detail['admin_flag'];
@@ -213,9 +219,27 @@
         }
 
         if(admin_flag == 0)
-            admin_button.style.display = "none";
+        {
+            for(let i = 0; i < admin_buttons.length; i++)
+            {
+                admin_button = admin_buttons[i];
+                admin_button.style.display = "none";
+            }
+        }
         else
-            admin_button.style.display = "block";
+        {
+            for(let i = 0; i < admin_buttons.length; i++)
+            {
+                admin_button = admin_buttons[i];
+                admin_button.style.display = "inline";
+            }
+        }
+
+        //functions
+        function editClicked()
+        {
+            window.location.replace("editprofile.php?username=" + uname);
+        }
         
         function logOutClicked(){
             window.location.replace("logout.php");

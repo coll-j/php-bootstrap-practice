@@ -6,7 +6,13 @@ session_start();
 include 'config.php';
 
 // menangkap data yang dikirim dari form
-$username = $_SESSION['username'];
+if(isset($_GET['uname']))
+{
+    $username = $_GET['uname'];
+}
+else {
+    // $username = $_SESSION['username'];
+}
 $fn = $_POST['firstname'];
 $ln = $_POST['lastname'];
 $bp = $_POST['birthplace'];
