@@ -114,7 +114,7 @@
                 <a class="nav-link" href="home.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-success" href="#">Edit Profile</a>
+                <a class="nav-link text-success" href="editprofile.php">Edit Profile</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Inbox</a>
@@ -279,11 +279,22 @@
         }
         else
         {
-            document.getElementById("firstname").value = profile_info['first_name'];
-            document.getElementById("lastname").value = profile_info['last_name'];
-            document.getElementById("birthplace").value = profile_info['birth_place'];
-            document.getElementById("datepicker").value = profile_info['birth_date'];
-            document.getElementById("mbti").value = profile_info['mbti'];
+            if(uname == '')
+            {
+                document.getElementById("firstname").value = profile_info['first_name'];
+                document.getElementById("lastname").value = profile_info['last_name'];
+                document.getElementById("birthplace").value = profile_info['birth_place'];
+                document.getElementById("datepicker").value = profile_info['birth_date'];
+                document.getElementById("mbti").value = profile_info['mbti'];
+            }
+            else
+            {
+                document.getElementById("firstname").value = others.first_name;
+                document.getElementById("lastname").value = others.last_name;
+                document.getElementById("birthplace").value = others.birth_place;
+                document.getElementById("datepicker").value = others.birth_date;
+                document.getElementById("mbti").value = others.mbti;
+            }
         }
 
         if(admin_flag == 0)
@@ -297,15 +308,30 @@
         }
 
         function submitClicked() {
-            if(filled > 0) //filled, update data
+            if(uname != '') // edit punya orang
             {
-                document.profileform.action = "updateprofile.php";
-                document.getElementById("profileform").submit();
+                if(others.first_name == '') //punya orang, belom ada isinya
+                {
+                    document.profileform.action = "insertprofile.php?uname=" + uname;
+                    document.getElementById("profileform").submit();
+                }
+                else
+                {
+                    document.profileform.action = "updateprofile.php?uname=" + uname;
+                    document.getElementById("profileform").submit();
+                }
             }
-            else
-            {
-                document.profileform.action = "insertprofile.php";
-                document.getElementById("profileform").submit();
+            else{
+                if(filled > 0) //filled, update data
+                {
+                    document.profileform.action = "updateprofile.php";
+                    document.getElementById("profileform").submit();
+                }
+                else
+                {
+                    document.profileform.action = "insertprofile.php";
+                    document.getElementById("profileform").submit();
+                }
             }
         }
 

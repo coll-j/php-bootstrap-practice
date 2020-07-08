@@ -9,9 +9,16 @@ include 'config.php';
 if(isset($_GET['uname']))
 {
     $username = $_GET['uname'];
+    if($_SESSION['status'] != 1)
+    {
+        echo "<script type='text/javascript'>alert('You don't have permission to edit this profile.');</script>";
+        header("location:home.php");
+    }
+    $afterloc = 'location:otheruser.php?username=' . $username;
 }
 else {
-    // $username = $_SESSION['username'];
+    $username = $_SESSION['username'];
+    $afterloc = 'location:home.php';
 }
 $fn = $_POST['firstname'];
 $ln = $_POST['lastname'];
@@ -28,5 +35,5 @@ birth_date = '$bd',
 mbti = '$mbti' 
 where username='$username'");
 
-header('location:home.php');
+header($afterloc);
 ?>

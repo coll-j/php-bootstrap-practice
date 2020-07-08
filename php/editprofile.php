@@ -8,11 +8,22 @@ if(isset($_GET['username']))
     $user = $_GET['username'];
     $data = $conn->query("select * from usersdata where username='$user'");
     $result = mysqli_fetch_array($data);
-    $first_name = $result['first_name'];
-    $last_name = $result['last_name'];
-    $birth_place = $result['birth_place'];
-    $birth_date = $result['birth_date'];
-    $mbti = $result['mbti'];
+    if(mysqli_num_rows($data) > 0)
+    {
+        $first_name = $result['first_name'];
+        $last_name = $result['last_name'];
+        $birth_place = $result['birth_place'];
+        $birth_date = $result['birth_date'];
+        $mbti = $result['mbti'];
+    }
+    else
+    {
+        $first_name = '';
+        $last_name = '';
+        $birth_place = '';
+        $birth_date = '';
+        $mbti = '';
+    }
 
 
     echo "<script type='text/javascript'>
