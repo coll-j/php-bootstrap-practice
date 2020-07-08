@@ -3,7 +3,9 @@
 <head>
 </head>
 <body>
-
+<script type="text/javascript">
+    var profiles = [];
+</script>
 
 <?php
 
@@ -15,6 +17,24 @@ $user = $_SESSION['username'];
 $data = $conn->query("select * from usersdata where username='$user'");
 $filled = mysqli_num_rows($data);
 $result = mysqli_fetch_array($data);
+
+if($_SESSION['status'] == 1)
+{
+    $results = $conn->query("select * from users where username !='$user'");
+}
+else
+{
+    $results = $conn->query("select * from users where admin_flag = 0 and username !='$user'");
+}
+
+while($row = mysqli_fetch_array($results))
+{
+    echo "<script type='text/javascript'> 
+        profiles.push('" . $row['username'] . "'); console.log(profiles) </script>";
+}
+echo "<script type='text/javascript'> 
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+</script>";
 
 include("../html/dashboard/home.html");
 

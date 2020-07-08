@@ -12,7 +12,7 @@ if(isset($_SESSION["password"]) && $_SESSION["password"] != "")
         header("location:home.php");
     }
     else{
-        die("something went wrong.");
+        die("something went wrong." . $conn->error);
     }
 }
 ?>

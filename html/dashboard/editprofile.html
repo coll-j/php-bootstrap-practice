@@ -79,8 +79,28 @@
             <h3 class="text-success">Admin</h3>
         </div>
         <div class="float-left">
-            <a class="nav-link" href="#">Personnel</a>
+            <a class="nav-link" href="#">Member</a>
             <a class="nav-link" href="#">Inbox</a>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="noticeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="noticeModalLabel">Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            Are you sure to <span class="text-danger">delete account</span>?
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger" onclick="deleteClicked()">Delete Account</button>
+            </div>
+        </div>
         </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -117,7 +137,7 @@
           </div>
     </nav>
     <div class="container-fluid bg-light p-0" style="height: 100%; position: fixed;">
-        <div class="container h-100 float-left" style="width: 80%;">
+        <div class="container h-100 float-left ml-3" style="width: 80%;">
             <h1 class="display-4">Edit Profile</h1>
             <div class="d-inline-block align-middle w-100" style="margin-inline-start: 30px;">
                 <form method="POST" name="profileform" id="profileform">
@@ -137,7 +157,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Birth Date</label>
-                        <input type="text" class="form-control" id="datepicker" name="birthdate" autocomplete="off" placeholder="YYYY/MM/DD">
+                        <input type="text" class="form-control" id="datepicker" name="birthdate" autocomplete="off" placeholder="YYYY-MM-DD">
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlSelect1">MBTI</label>
@@ -165,8 +185,7 @@
                   </form>
                   <div class="container-fluid float-left m-0 p-0">
                     <button class="btn btn-primary mr-3" onclick="submitClicked()">Submit</button>
-                    <button class="btn btn-danger">Delete Account</button>
-
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#noticeModal">Delete Account</button>
                   </div>
             </div>
         </div>
@@ -198,7 +217,7 @@
 
         $('#datepicker').datepicker({
             uiLibrary: 'bootstrap4',
-            format: 'yyyy/mm/dd'
+            format: 'YYYY-MM-DD'
         });
         // search side bar
         var users = JSON.parse(localStorage.getItem('profiles'));
@@ -273,10 +292,19 @@
             admin_button.style.display = "block";
 
         //functions
+        function deleteClicked() {
+            window.location.replace("deleteaccount.php");
+        }
+
         function submitClicked() {
             if(filled > 0) //filled, update data
             {
                 document.profileform.action = "updateprofile.php";
+                document.getElementById("profileform").submit();
+            }
+            else
+            {
+                document.profileform.action = "insertprofile.php";
                 document.getElementById("profileform").submit();
             }
         }

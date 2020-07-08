@@ -79,16 +79,10 @@
                         data: {username: user, password: passField.value, status: "0"}
                     });
 
-                    $.ajax({
-                        type: "POST",
-                        url: "addaccount.php",
-                        data: {username: user, password: passField.value, status: "0"}
-                    });
-
                     window.location.replace("addaccount.php");
                 }
                 else
-                    alert("Confirm password should be the same. " + passField.value + " " + passField2.value);
+                    alert("Confirm password should be the same. ");
 
                 var detail = {
                     "username": user,

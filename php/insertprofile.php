@@ -14,13 +14,8 @@ $bd = $_POST['birthdate'];
 $mbti = $_POST['mbti'];
 
 // menyeleksi data admin dengan username dan password yang sesuai
-$result = $conn->query("UPDATE usersdata SET 
-first_name = '$fn',
-last_name = '$ln', 
-birth_place = '$bp', 
-birth_date = '$bd', 
-mbti = '$mbti' 
-where username='$username'");
+$result = $conn->query("INSERT INTO usersdata (username, first_name, last_name, birth_place, birth_date, mbti) VALUES
+('$username', '$fn', '$ln', '$bp', '$bd', '$mbti' )");
 
 header('location:home.php');
 ?>
