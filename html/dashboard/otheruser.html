@@ -85,6 +85,25 @@
             <a class="nav-link" href="#">Inbox</a>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="noticeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="noticeModalLabel">Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger" onclick="deleteClicked()">Delete Account</button>
+            </div>
+        </div>
+        </div>
+    </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -120,9 +139,9 @@
     </nav>
     <div class="container-fluid bg-light p-0" style="height: 100%; position: fixed;">
         <div class="container h-100 float-left ml-3" style="width: 80%;">
-            <h1 class="display-3 mb-5" id="myHeader">Zapraszamy!</h1>
+            <h1 class="display-3 mb-5" id="myHeader">Welcome!</h1>
             <div class="d-inline" style="margin-right: 30px;">
-                <img src="../assets/profile-Icon.png" width="30%" class="rounded-circle d-inline" style="border: 5px solid black">
+                <img id="profileImage"src="../assets/profile-Icon.png" width="30%" class="rounded-circle d-inline" style="border: 5px solid black">
             </div>
             <div class="d-inline-block align-middle" style="margin-inline-start: 30px;">
                 <h4 class="p-2" id="fn">First name:</h4>
@@ -132,8 +151,8 @@
                 <h4 class="p-2" id="mbti">MBTI:</h4>
                 <a class="pl-2" style="display: none;" href="https://www.16personalities.com/" target="_blank">Take 16 personalities test</a>
                 <button class="btn btn-success mt-3 ml-2 admin-button" onclick="editClicked()">Edit</button>
-                <button class="btn btn-danger mt-3 ml-2 admin-button">Delete Account</button>
-                <button class="btn btn-primary mt-3 ml-2 admin-button">Add to Admin</button>
+                <button class="btn btn-danger mt-3 ml-2 admin-button" data-toggle="modal" data-target="#noticeModal" onclick="changeModalBody()">Delete Account</button>
+                <button class="btn btn-primary mt-3 ml-2 admin-button" id="addAdmin" onclick="addAdmin()">Add to Admin</button>
             </div>
         </div>
         <div class="h-100 w-100">
@@ -236,6 +255,32 @@
         }
 
         //functions
+        function addAdmin()
+        {
+            window.location.replace("addadmin.php?admin=" + uname);
+        }
+
+        function changeAddAdminBtn()
+        {
+            var addAdmin = document.getElementById("addAdmin");
+            addAdmin.innerHTML = "Remove from Admin";
+            addAdmin.classList.remove("btn-primary");
+            addAdmin.classList.add("btn-warning");
+            addAdmin.onclick = function(){
+                let loc = "removeadmin.php?admin=" + uname + "&from=otheruser";
+                console.log(loc);
+                window.location.replace(loc);
+            }
+        }
+        function changeModalBody(){
+            var modalBody = document.getElementsByClassName("modal-body")[0];
+            modalBody.innerHTML = "Are you sure to delete <span class='text-danger'>" + uname + "</span>'s account?";
+        }
+        function deleteClicked()
+        {
+            window.location.replace("deleteaccount.php?username=" + uname);
+        }
+
         function editClicked()
         {
             window.location.replace("editprofile.php?username=" + uname);

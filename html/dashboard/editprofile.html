@@ -140,7 +140,7 @@
         <div class="container h-100 float-left ml-3" style="width: 80%;">
             <h1 class="display-4">Edit Profile</h1>
             <div class="d-inline-block align-middle w-100" style="margin-inline-start: 30px;">
-                <form method="POST" name="profileform" id="profileform">
+                <form method="POST" name="profileform" id="profileform" enctype='multipart/form-data'>
                     <div class="form-group row">
                         <div class="col">
                             <label for="exampleFormControlInput1">First name</label>
@@ -182,6 +182,10 @@
                       </select>
                         <a href="https://www.16personalities.com/" target="_blank">Take 16 personalities test</a>
                     </div>
+                    <div class="custom-file mb-3">
+                        <input type="file" class="custom-file-input" id="customm" name="image">
+                        <label class="custom-file-label" for="customm">Choose file</label>
+                      </div>
                   </form>
                   <div class="container-fluid float-left m-0 p-0">
                     <button class="btn btn-primary mr-3" onclick="submitClicked()">Submit</button>
@@ -215,10 +219,16 @@
             $(this).children().addClass('text-success');
         });
 
+        $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
         $('#datepicker').datepicker({
             uiLibrary: 'bootstrap4',
             format: 'yyyy-mm-dd'
         });
+        
         // search side bar
         var users = JSON.parse(localStorage.getItem('profiles'));
         var maxLength = (users.length > 10)? users.length : users.length;
@@ -313,12 +323,12 @@
                 if(others.first_name == '') //punya orang, belom ada isinya
                 {
                     document.profileform.action = "insertprofile.php?uname=" + uname;
-                    document.getElementById("profileform").submit();
+                    // document.getElementById("profileform").submit();
                 }
                 else
                 {
                     document.profileform.action = "updateprofile.php?uname=" + uname;
-                    document.getElementById("profileform").submit();
+                    // document.getElementById("profileform").submit();
                 }
             }
             else{
@@ -330,7 +340,7 @@
                 else
                 {
                     document.profileform.action = "insertprofile.php";
-                    document.getElementById("profileform").submit();
+                    // document.getElementById("profileform").submit();
                 }
             }
         }

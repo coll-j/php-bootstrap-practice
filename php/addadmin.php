@@ -7,20 +7,12 @@ include 'config.php';
 
 // menangkap data yang dikirim dari form
 $username = $_GET['admin'];
-if(isset($_GET['from']))
-{
-    $nextloc = "location:otheruser.php?username=" . $username;
-}
-else
-{
-    $nextloc = "location:adminmember.php";
-}
 
 // menyeleksi data admin dengan username dan password yang sesuai
-$result = $conn->query("UPDATE users SET admin_flag = 0 where username='$username'");
+$result = $conn->query("UPDATE users SET admin_flag = 1 where username='$username'");
 if($result === TRUE)
 {
-    header($nextloc);
+    header("location:otheruser.php?username=" . $username);
 }
 else {
     echo "error" . $conn->error;

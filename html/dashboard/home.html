@@ -116,9 +116,9 @@
     </nav>
     <div class="container-fluid bg-light p-0" style="height: 100%; position: fixed;">
         <div class="container h-100 float-left ml-3" style="width: 80%;">
-            <h1 class="display-3 mb-5">Zapraszamy!</h1>
+            <h1 class="display-3 mb-5">Welcome!</h1>
             <div class="d-inline" style="margin-right: 30px;">
-                <img src="../assets/profile-Icon.png" width="30%" class="rounded-circle d-inline" style="border: 5px solid black">
+                <img id="profileImage" src="../assets/profile-Icon.png" width="30%" class="rounded-circle d-inline" style="border: 5px solid black">
             </div>
             <div class="d-inline-block align-middle" style="margin-inline-start: 30px;">
                 <h4 class="p-2" id="fn">First name:</h4>
@@ -191,17 +191,17 @@
             {
                 if(usersList[i].innerHTML.toUpperCase().indexOf(filter) > -1)
                 {
-                    console.log("ada");
+                    // console.log("ada");
                     usersList[i].style.display = "";
                 }
                 else
                 {
-                    console.log("gaada");
+                    // console.log("gaada");
                     usersList[i].style.display = "none";
                     // console.log(usersList[i].style.display);
                 }
             }
-            console.log(usersList[1].style.display);
+            // console.log(usersList[1].style.display);
         }
 
         var adminSidePanel = document.getElementById("adminSidepanel");
