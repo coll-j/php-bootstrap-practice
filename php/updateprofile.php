@@ -25,23 +25,28 @@ $ln = $_POST['lastname'];
 $bp = $_POST['birthplace'];
 $bd = $_POST['birthdate'];
 $mbti = $_POST['mbti'];
-$image = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
-// menyeleksi data admin dengan username dan password yang sesuai
-if(isset($_FILES["image"]))
+
+if($_FILES["image"]["type"] == "image/jpeg" || $_FILES["image"]["type"] == "image/png" || $_FILES["image"]["type"] == "image/jpg")
 {
-    echo "file exist";
+    $image = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+    $result = $conn->query("UPDATE usersdata SET 
+    first_name = '$fn',
+    last_name = '$ln', 
+    birth_place = '$bp', 
+    birth_date = '$bd', 
+    mbti = '$mbti',
+    image = '$image' 
+    where username='$username'");
 }
 else{
-    echo "no file";
+    $result = $conn->query("UPDATE usersdata SET 
+    first_name = '$fn',
+    last_name = '$ln', 
+    birth_place = '$bp', 
+    birth_date = '$bd', 
+    mbti = '$mbti'
+    where username='$username'");
 }
-$result = $conn->query("UPDATE usersdata SET 
-first_name = '$fn',
-last_name = '$ln', 
-birth_place = '$bp', 
-birth_date = '$bd', 
-mbti = '$mbti',
-image = '$image' 
-where username='$username'");
 
 if($result === TRUE)
 {

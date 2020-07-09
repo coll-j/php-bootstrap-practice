@@ -6,6 +6,7 @@ include 'config.php';
 
 if(isset($_POST['username']))
 {
+    $_SESSION['username'] = $_POST['username'];
     $username = $_SESSION['username'];
     // menyeleksi data admin dengan username dan password yang sesuai
     $data = $conn->query("select * from users where username='$username'");

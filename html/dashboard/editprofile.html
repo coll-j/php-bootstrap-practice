@@ -323,12 +323,12 @@
                 if(others.first_name == '') //punya orang, belom ada isinya
                 {
                     document.profileform.action = "insertprofile.php?uname=" + uname;
-                    // document.getElementById("profileform").submit();
+                    document.getElementById("profileform").submit();
                 }
                 else
                 {
                     document.profileform.action = "updateprofile.php?uname=" + uname;
-                    // document.getElementById("profileform").submit();
+                    document.getElementById("profileform").submit();
                 }
             }
             else{
@@ -340,7 +340,7 @@
                 else
                 {
                     document.profileform.action = "insertprofile.php";
-                    // document.getElementById("profileform").submit();
+                    document.getElementById("profileform").submit();
                 }
             }
         }
