@@ -121,23 +121,23 @@
         <div class="container h-100 float-left ml-3" style="width: 80%;">
             <h1 class="display-4">Send Message</h1>
             <div class="d-inline-block align-middle w-100" style="margin-inline-start: 30px;">
-                <form method="POST" name="profileform" id="profileform" enctype='multipart/form-data'>
+                <form method="POST" name="profileform" id="profileform" action="../helpers/sendMessage.php">
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">To</label>
+                        <label >To</label>
                         <input type="text" class="form-control" id="to" name="to" autocomplete="off" placeholder="Enter username destination">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Subject</label>
+                        <label >Subject</label>
                         <input type="text" class="form-control" id="subject" name="subject" autocomplete="off" placeholder="Enter the subject">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Message</label>
+                        <label >Message</label>
                         <textarea class="form-control" id="message" name="message" autocomplete="off" placeholder="Enter your message" rows="6"></textarea>
                     </div>
+                    <div class="form-group">
+                        <input type="submit" value="Send message" class="btn btn-primary">
+                    </div>
                   </form>
-                  <div class="container-fluid float-left m-0 p-0">
-                    <button class="btn btn-primary mr-3" onclick="submitClicked()">Submit</button>
-                  </div>
             </div>
         </div>
         <div class="h-100 w-100">
@@ -260,38 +260,6 @@
             admin_button.style.display = "block";
 
         //functions
-        function deleteClicked() {
-            window.location.replace("../helpers/deleteaccount.php");
-        }
-
-        function submitClicked() {
-            if(uname != '') // edit punya orang
-            {
-                if(others.first_name == '') //punya orang, belom ada isinya
-                {
-                    document.profileform.action = "../helpers/insertprofile.php?uname=" + uname;
-                    document.getElementById("profileform").submit();
-                }
-                else
-                {
-                    document.profileform.action = "../helpers/updateprofile.php?uname=" + uname;
-                    document.getElementById("profileform").submit();
-                }
-            }
-            else{
-                if(filled > 0) //filled, update data
-                {
-                    document.profileform.action = "../helpers/updateprofile.php";
-                    document.getElementById("profileform").submit();
-                }
-                else
-                {
-                    document.profileform.action = "../helpers/insertprofile.php";
-                    document.getElementById("profileform").submit();
-                }
-            }
-        }
-
         function logOutClicked(){
             window.location.replace("../helpers/logout.php");
         }
