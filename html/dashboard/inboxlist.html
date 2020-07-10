@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html translate="no">
 <head>
     <title>Tugas 3 - 05111840000080</title>
+    <meta name="google" content="notranslate">
     
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css" rel="stylesheet">
-
     <style>
         .btn:focus {
             box-shadow: none;
@@ -80,7 +80,7 @@
         </div>
         <div class="float-left">
             <a class="nav-link" href="adminmember.php">Member</a>
-            <a class="nav-link" href="inboxlist.php">Inbox</a>
+            <a class="nav-link" href="inboxlist.php?admin=1">Inbox</a>
         </div>
     </div>
     <!-- Modal -->
@@ -111,16 +111,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link text-success" href="home.php">Home</a>
+                <a class="nav-link" href="home.php">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="editprofile.php">Edit Profile</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="inboxlist.php">Inbox</a>
+                <a class="nav-link text-success" href="inboxlist.php">Inbox</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Contact Admin</a>
+                <a class="nav-link" href="contactAdmin.php">Contact Admin</a>
               </li>
             </ul>
             <div class="div-inline">
@@ -143,8 +143,9 @@
                 <table data-toggle="table">
                     <thead class="thead-light">
                         <tr>
-                            <th data-width="250">Username</th>
-                            <th data-width="550">Subject</th>
+                            <th data-width="200">Username</th>
+                            <th data-width="400">Subject</th>
+                            <th data-width="200">Time</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -156,7 +157,7 @@
         <div class="h-100 w-100">
             <div class="float-left">
                 <p style="color: red; padding: 0; margin: 0; display: none;" id="unfilled">&#8226 Your profile data isn't filled yet</p>
-                <p style="color: red; padding: 0; margin: 0;">&#8226 0 unread Inbox</p>
+                <p style="color: red; padding: 0; margin: 0;">&#8226 <span id="unreadNotice">0</span> unread Inbox</p>
             </div>
             <div class="float-right block h-75" id="admin-button" style="display: none;">
                 <button class="btn btn-success m-0" style="border-radius: 9999em 0 0 9999em;" onclick="openAdminNav()"> &#171 </button>
@@ -177,6 +178,7 @@
             $(this).addClass('active');
             $(this).children().addClass('text-success');
         });
+        document.getElementById("unreadNotice").innerHTML = "<?php echo $_SESSION['unread']; ?>";
 
         var messageList = document.getElementById("messageList");
         for(let i = 0; i < messages.length; i++)
@@ -184,15 +186,17 @@
             let row = messageList.insertRow();
             let unamecell = row.insertCell();
             let subjectcell = row.insertCell();
+            let timecell = row.insertCell();
             let actioncell = row.insertCell();
             unamecell.innerHTML = messages[i].username;
             subjectcell.innerHTML = messages[i].subject;
-            subjectcell.classList.add("font-weight-bold");
+            timecell.innerHTML = messages[i].date;
+            if(messages[i].read == 0)subjectcell.classList.add("font-weight-bold");
             actioncell.classList.add("d-flex");
             actioncell.classList.add("justify-content-center");
 
             var viewButton = document.createElement("span");
-            viewButton.innerHTML = '<button class="btn btn-success mr-3" name="' + messages[i].id +'" onclick="viewMessage(this)">View message</button>';
+            viewButton.innerHTML = '<button class="btn btn-success mr-3 '+ messages[i].username + '" name="' + messages[i].id +'" onclick="viewMessage(this)">View message</button>';
             console.log(viewButton.innerHTML);
             actioncell.appendChild(viewButton);
             var rmButton = document.createElement("span");
