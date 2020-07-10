@@ -101,7 +101,7 @@
                 <a class="nav-link" href="inboxlist.php">Inbox</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contactAdmin.php">Contact Admin</a>
+                <a class="nav-link text-success" href="contactAdmin.php">Contact Admin</a>
               </li>
             </ul>
             <div class="div-inline">
@@ -119,13 +119,9 @@
     </nav>
     <div class="container-fluid bg-light p-0" style="height: 100%; position: fixed;">
         <div class="container h-100 float-left ml-3" style="width: 80%;">
-            <h1 class="display-4">Send Message</h1>
+            <h1 class="display-4">Contact Admin</h1>
             <div class="d-inline-block align-middle w-100" style="margin-inline-start: 30px;">
-                <form method="POST" name="profileform" id="profileform" action="../helpers/sendMessage.php">
-                    <div class="form-group">
-                        <label >To</label>
-                        <input type="text" class="form-control" id="to" name="to" autocomplete="off" placeholder="Enter username destination">
-                    </div>
+                <form method="POST" name="profileform" id="profileform" action="../helpers/sendMessage.php?admin=1">
                     <div class="form-group">
                         <label >Subject</label>
                         <input type="text" class="form-control" id="subject" name="subject" autocomplete="off" placeholder="Enter the subject">

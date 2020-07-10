@@ -80,7 +80,7 @@
         </div>
         <div class="float-left">
             <a class="nav-link" href="adminmember.php">Member</a>
-            <a class="nav-link" href="inboxlist.php">Inbox</a>
+            <a class="nav-link" href="inboxlist.php?admin=1">Inbox</a>
         </div>
     </div>
     <!-- Modal -->
@@ -111,7 +111,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link text-success" href="home.php">Home</a>
+                <a class="nav-link" href="home.php">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="editprofile.php">Edit Profile</a>
@@ -120,7 +120,7 @@
                 <a class="nav-link" href="inboxlist.php">Inbox</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Contact Admin</a>
+                <a class="nav-link" href="contactAdmin.php">Contact Admin</a>
               </li>
             </ul>
             <div class="div-inline">
@@ -157,7 +157,7 @@
         <div class="h-100 w-100">
             <div class="float-left">
                 <p style="color: red; padding: 0; margin: 0; display: none;" id="unfilled">&#8226 Your profile data isn't filled yet</p>
-                <p style="color: red; padding: 0; margin: 0;">&#8226 0 unread Inbox</p>
+                <p style="color: red; padding: 0; margin: 0;">&#8226 <span id="unreadNotice">0</span> unread Inbox</p>
             </div>
             <div class="float-right block h-75" id="admin-button" style="display: none;">
                 <button class="btn btn-success m-0" style="border-radius: 9999em 0 0 9999em;" onclick="openAdminNav()"> &#171 </button>
@@ -178,6 +178,7 @@
             $(this).addClass('active');
             $(this).children().addClass('text-success');
         });
+        document.getElementById("unreadNotice").innerHTML = "<?php echo $_SESSION['unread']; ?>";
 
         var adminList = document.getElementById("adminlist");
         for(let i = 0; i < admins.length; i++)

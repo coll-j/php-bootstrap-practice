@@ -82,7 +82,7 @@
         </div>
         <div class="float-left">
             <a class="nav-link" href="adminmember.php">Member</a>
-            <a class="nav-link" href="inboxlist.php">Inbox</a>
+            <a class="nav-link" href="inboxlist.php?admin=1">Inbox</a>
         </div>
     </div>
     <!-- Modal -->
@@ -121,7 +121,7 @@
                 <a class="nav-link" href="inboxlist.php">Inbox</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Contact Admin</a>
+                <a class="nav-link" href="contactAdmin.php">Contact Admin</a>
               </li>
             </ul>
             <div class="div-inline">
@@ -159,7 +159,7 @@
         <div class="h-100 w-100">
             <div class="float-left">
                 <p style="color: red; padding: 0; margin: 0; display: none;" id="unfilled">&#8226 Your profile data isn't filled yet</p>
-                <p style="color: red; padding: 0; margin: 0;">&#8226 0 unread Inbox</p>
+                <p style="color: red; padding: 0; margin: 0;">&#8226 <span id="unreadNotice">0</span> unread Inbox</p>
             </div>
             <div class="float-right block h-75 admin-button" >
                 <button class="btn btn-success m-0" style="border-radius: 9999em 0 0 9999em;" onclick="openAdminNav()"> &#171 </button>
@@ -172,7 +172,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
  
-    <script type="text/javascript" src="../js/users.js"></script>
     <script type="text/javascript">
         $('.nav-item').on("click", function(){
             $('.nav-item').removeClass('active');
@@ -180,6 +179,7 @@
             $(this).addClass('active');
             $(this).children().addClass('text-success');
         });
+        document.getElementById("unreadNotice").innerHTML = "<?php echo $_SESSION['unread']; ?>";
 
         var users = JSON.parse(localStorage.getItem('profiles'));
         var maxLength = (users.length > 10)? users.length : users.length;
