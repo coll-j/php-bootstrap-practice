@@ -8,7 +8,7 @@
 <?php
 
 include '../helpers/config.php';
-
+session_start();
 $results = $conn->query("select * from users where admin_flag = 1");
 
 while($unames = mysqli_fetch_array($results)['username'])

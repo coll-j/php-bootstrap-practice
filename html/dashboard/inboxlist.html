@@ -80,7 +80,8 @@
         </div>
         <div class="float-left">
             <a class="nav-link" href="adminmember.php">Member</a>
-            <a class="nav-link" href="inboxlist.php?admin=1">Inbox</a>
+            <a class="nav-link" href="inboxlist.php">Inbox</a>
+            <a class="nav-link" href="writeMessage.php?admin=1">Send Message</a>
         </div>
     </div>
     <!-- Modal -->
@@ -200,7 +201,7 @@
             console.log(viewButton.innerHTML);
             actioncell.appendChild(viewButton);
             var rmButton = document.createElement("span");
-            rmButton.innerHTML = '<button class="btn btn-danger" name="' + messages[i].id +'" onclick="changeRemoveName(this)" data-toggle="modal" data-target="#noticeModal">Remove</button>';
+            rmButton.innerHTML = '<button class="btn btn-danger '+ messages[i].username + '" name="' + messages[i].id +'" onclick="addAdminClass(this)" data-toggle="modal" data-target="#noticeModal">Remove</button>';
             console.log(rmButton.innerHTML);
             actioncell.appendChild(rmButton);
         }
@@ -234,7 +235,7 @@
             var element1 = document.createElement("input"); 
 
             form.method = "POST";
-            console.log(element.classList)
+            console.log(element.classList);
             form.action = (is_admin == 1)? "viewMessage.php?admin=1" : (element.classList.contains("Admin"))? "viewMessage.php?admin=2" : "viewMessage.php";   
 
             element1.value = element.name;
@@ -245,7 +246,9 @@
 
             form.submit();
         }
-        function changeRemoveName(element){
+
+        function addAdminClass(element){
+            if(element.classList.contains("Admin"))document.getElementById("removeMsg").classList.add("Admin");
             document.getElementById("removeMsg").name = element.name;
         }
 
@@ -254,7 +257,8 @@
             var element1 = document.createElement("input"); 
 
             form.method = "POST";
-            form.action = "../helpers/removeMessage.php";   
+            console.log(element.classList);
+            form.action = (is_admin == 1)? "../helpers/removeMessage.php?admin=1" : (element.classList.contains("Admin"))? "../helpers/removeMessage.php?admin=2" : "../helpers/removeMessage.php";   
 
             element1.value=element.name;
             element1.name="id";

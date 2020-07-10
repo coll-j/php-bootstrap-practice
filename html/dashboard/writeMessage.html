@@ -81,6 +81,7 @@
         <div class="float-left">
             <a class="nav-link" href="adminmember.php">Member</a>
             <a class="nav-link" href="inboxlist.php">Inbox</a>
+            <a class="nav-link" href="writeMessage.php?admin=1">Send Message</a>
         </div>
     </div>
 
@@ -121,7 +122,7 @@
         <div class="container h-100 float-left ml-3" style="width: 80%;">
             <h1 class="display-4">Send Message</h1>
             <div class="d-inline-block align-middle w-100" style="margin-inline-start: 30px;">
-                <form method="POST" name="profileform" id="profileform" action="../helpers/sendMessage.php">
+                <form method="POST" name="profileform" id="profileform" action="../helpers/sendMessage.php" onsubmit="formOnSubmit(this)">
                     <div class="form-group">
                         <label >To</label>
                         <input type="text" class="form-control" id="to" name="to" autocomplete="off" placeholder="Enter username destination">
@@ -175,7 +176,7 @@
             uiLibrary: 'bootstrap4',
             format: 'yyyy-mm-dd'
         });
-        
+        var is_admin = 0;
         // search side bar
         var users = JSON.parse(localStorage.getItem('profiles'));
         var maxLength = (users.length > 10)? users.length : users.length;
@@ -236,6 +237,10 @@
             admin_button.style.display = "block";
 
         //functions
+        function formOnSubmit(element){
+            if(is_admin==1) element.action = "../helpers/sendMessage.php?admin=0";
+        }
+
         function logOutClicked(){
             window.location.replace("../helpers/logout.php");
         }

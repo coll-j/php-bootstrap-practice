@@ -11,6 +11,11 @@ if(isset($_GET['user']))
         document.getElementById('to').value = '" . $_GET['user'] . "'; 
     </script>";
 }
-
+if(isset($_GET['admin']))
+{
+    echo "<script type='text/javascript'>
+    is_admin = 1;
+    </script>";
+}
 ?>
 </html>

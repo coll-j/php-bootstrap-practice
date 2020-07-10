@@ -52,7 +52,7 @@ if(!$results)
 else{
     $unread += mysqli_num_rows($results);
 }
-
+$_SESSION['unread'] = $unread;
 echo "<script type='text/javascript'>
     console.log(".$unread.");
 </script>";
