@@ -6,18 +6,12 @@ $id = $_POST['id'];
 if(isset($_GET['admin']))
 {
     $results = $conn->query("select * from admin_message where id=$id");
-    if($results === TRUE)
-    {
-
-    }
-    else{
-        echo"select * from admin_message where id=".$id;
-        die(mysqli_error($conn));
-    }
+    if(!$results) printf($conn->error);
     $msg = mysqli_fetch_array($results);
     
+    $from = ($_GET['admin'] == 1)? $msg['username'] : 'Admin';
     echo "<script type='text/javascript'>
-    var from = '" . $msg['username'] ."';
+    var from = '" . $from ."';
     var subject = '" . $msg['subject'] ."';
     var msgbody = '" . $msg['message'] ."';
     </script>";
@@ -28,13 +22,7 @@ if(isset($_GET['admin']))
 else
 {
     $results = $conn->query("select * from user_inbox where id=$id");
-    if($results === TRUE)
-    {
-    }
-    else{
-        echo"select * from user_inbox where id=".$id;
-        die(mysqli_error($conn));
-    }
+    if(!$results) printf($conn->error);
     $msg = mysqli_fetch_array($results);
     
     echo "<script type='text/javascript'>
