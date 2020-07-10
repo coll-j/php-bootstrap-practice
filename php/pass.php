@@ -15,7 +15,7 @@ if(isset($_POST['username']))
     $cek = mysqli_num_rows($data);
     
     if($cek > 0){
-        header("location:index.php?pesan=exist");
+        header("location:index.php?pesan=exist&user=$username");
     }
     else
     {
