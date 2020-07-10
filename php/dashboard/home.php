@@ -38,11 +38,6 @@ echo "<script type='text/javascript'>
     localStorage.setItem('profiles', JSON.stringify(profiles));
 </script>";
 
-$results = $conn->query("select * from user_inbox where to_user='$user' and is_read = 0");
-$unread = mysqli_num_rows($results);
-$results = $conn->query("select * from admin_message where username='$user' and in_out = 0 and is_read = 0");
-$unread += mysqli_num_rows($results);
-$_SESSION['unread'] = $unread;
 include("../../html/dashboard/home.html");
 
 ?>
@@ -81,7 +76,6 @@ include("../../html/dashboard/home.html");
         document.getElementById("unfilled").style.display = "inline";
     }
 
-    document.getElementById("unreadNotice").innerHTML = "<?php echo $unread; ?>";
 </script>
 </body>
 </html>
