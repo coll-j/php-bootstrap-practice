@@ -3,7 +3,7 @@
 
 include '../helpers/config.php';
 
-
+session_start();
 include("../../html/dashboard/contactAdmin.html");
 
 ?>

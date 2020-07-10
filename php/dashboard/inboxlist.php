@@ -27,10 +27,10 @@ if(isset($_GET['admin']))
                 id: '" . $msg['id'] . "',
                 username: '" . $msg['username'] . "',
                 subject: '" . $msg['subject'] . "',
-                body: '" . $msg['message'] . "',
                 date: '" . $msg['time'] . "',
                 read: " . $msg['is_read'] . "
-            }); </script>";
+            }); 
+            </script>";
     }
 }
 else
@@ -46,10 +46,10 @@ else
                 id: '" . $msg['id'] . "',
                 username: '" . $msg['from_user'] . "',
                 subject: '" . $msg['subject'] . "',
-                body: '" . $msg['message'] . "',
                 date: '" . $msg['time'] . "',
                 read: " . $msg['is_read'] . "
-            }); </script>";
+            }); 
+            </script>";
     }
     $results = $conn->query("select * from admin_message where username='$user' and in_out=0");
     while($msg = mysqli_fetch_array($results))
@@ -59,13 +59,13 @@ else
                 id: '" . $msg['id'] . "',
                 username: 'Admin',
                 subject: '" . $msg['subject'] . "',
-                body: '" . $msg['message'] . "',
                 date: '" . $msg['time'] . "',
                 read: " . $msg['is_read'] . "
-            }); </script>";
+            }); 
+            </script>";
     }
     echo "<script type='text/javascript'> 
-        localStorage.setItem('messages', JSON.stringify(messages));
+        // localStorage.setItem('messages', JSON.stringify(messages));
     </script>";
 }
 

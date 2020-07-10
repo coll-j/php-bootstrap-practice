@@ -38,6 +38,24 @@ echo "<script type='text/javascript'>
     localStorage.setItem('profiles', JSON.stringify(profiles));
 </script>";
 
+$results = $conn->query("select * from user_inbox where to_user='$user' and is_read = 0") or die(mysqli_error($conn));
+if(!$results)
+{
+    printf($conn->error);
+}
+else{
+    $unread = mysqli_num_rows($results);
+}
+$results = $conn->query("select * from admin_message where username='$user' and in_out = 0 and is_read = 0") or die(mysqli_error($conn));
+if(!$results)
+{
+    printf($conn->error);
+}
+else{
+    $unread += mysqli_num_rows($results);
+}
+$_SESSION['unread'] = $unread;
+
 include("../../html/dashboard/home.html");
 
 ?>

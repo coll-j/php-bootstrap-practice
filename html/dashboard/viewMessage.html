@@ -98,7 +98,7 @@
                 <a class="nav-link" href="inboxlist.php">Inbox</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Contact Admin</a>
+                <a class="nav-link" href="contactAdmin.php">Contact Admin</a>
               </li>
             </ul>
             <div class="div-inline">
@@ -117,16 +117,31 @@
     <div class="container-fluid bg-light p-0" style="height: 100%; position: fixed;">
         <div class="container h-100 float-left ml-3" style="width: 80%;">
             <h1 class="display-4">Message</h1>
-            <div class="d-inline-block align-middle">
-                <h4 class="p-2" id="from">From: </h4>
-                <h4 class="p-2" id="subject">Subject:</h4>
-                <h4 class="p-2" id="msgbody">Message: </h4>
+            <div class="d-inline-block align-middle w-100" style="margin-inline-start: 30px;">
+                <form>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">From</label>
+                        <div class="col-sm-11">
+                            <input type="text" readonly class="form-control-plaintext border rounded p-1 mt-1 bg-white" id="from" name="from" autocomplete="off" placeholder="Enter the subject">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">Subject</label>
+                        <div class="col-sm-11">
+                            <input type="text" readonly class="form-control-plaintext border rounded p-1 mt-1 bg-white" id="subject" name="subject" autocomplete="off" placeholder="Enter the subject">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label >Message</label>
+                        <textarea class="form-control-plaintext border rounded p-1 mt-1 bg-white" readonly id="msgbody" name="msgbody" autocomplete="off" placeholder="Enter your message" rows="10"></textarea>
+                    </div>
+                  </form>
             </div>
         </div>
         <div class="h-100 w-100">
             <div class="float-left">
                 <p style="color: red; padding: 0; margin: 0; display: none;" id="unfilled">&#8226 Your profile data isn't filled yet</p>
-                <p style="color: red; padding: 0; margin: 0;">&#8226 0 unread Inbox</p>
+                <p style="color: red; padding: 0; margin: 0;">&#8226 <span id="unreadNotice">0</span> unread Inbox</p>
             </div>
             <div class="float-right block h-75" id="admin-button" style="display: none;">
                 <button class="btn btn-success m-0" style="border-radius: 9999em 0 0 9999em;" onclick="openAdminNav()"> &#171 </button>
@@ -139,7 +154,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
  
-    <script type="text/javascript" src="../js/users.js"></script>
     <script type="text/javascript">
         $('.nav-item').on("click", function(){
             $('.nav-item').removeClass('active');
@@ -147,10 +161,11 @@
             $(this).addClass('active');
             $(this).children().addClass('text-success');
         });
+        document.getElementById("unreadNotice").innerHTML = "<?php echo $_SESSION['unread']; ?>";
 
-        document.getElementById("from").innerHTML = "From: " + from;
-        document.getElementById("subject").innerHTML = "Subject: " + subject;
-        document.getElementById("msgbody").innerHTML = "Message: " + msgbody;
+        document.getElementById("from").value = from;
+        document.getElementById("subject").value = subject;
+        document.getElementById("msgbody").value = msgbody;
 
         var users = JSON.parse(localStorage.getItem('profiles'));
         var maxLength = (users.length > 10)? users.length : users.length;

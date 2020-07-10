@@ -2,6 +2,7 @@
 <?php
 
 include '../helpers/config.php';
+session_start();
 
 if(isset($_GET['username']))
 {

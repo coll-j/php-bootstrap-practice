@@ -13,7 +13,7 @@ if(isset($_GET['admin']))
     echo "<script type='text/javascript'>
     var from = '" . $from ."';
     var subject = '" . $msg['subject'] ."';
-    var msgbody = '" . $msg['message'] ."';
+    var msgbody = " . json_encode($msg['message']) .";
     </script>";
 
     // $conn->query("UPDATE admin_message SET is_read=1 where id=$id");
@@ -28,22 +28,33 @@ else
     echo "<script type='text/javascript'>
     var from = '" . $msg['from_user'] ."';
     var subject = '" . $msg['subject'] ."';
-    var msgbody = '" . $msg['message'] ."';
+    var msgbody = " . json_encode($msg['message']) .";
     </script>";
 
     mysqli_query($conn, "UPDATE user_inbox SET is_read=1 where id=$id") or die(mysqli_error($conn));
     
 }
 
-echo "<script type='text/javascript'>
-console.log(" .$id . ");
-var from = '" . $msg['from_user'] ."';
-console.log(from);
-var subject = '" . $msg['subject'] ."';
-console.log(subject);
-var msgbody = '" . $msg['message'] ."';
-console.log(msgbody);
-</script>";
+$user = $_SESSION['username'];
+$results = $conn->query("select * from user_inbox where to_user='$user' and is_read = 0") or die(mysqli_error($conn));
+if(!$results)
+{
+    printf($conn->error);
+}
+else{
+    $unread = mysqli_num_rows($results);
+}
+$results = $conn->query("select * from admin_message where username='$user' and in_out = 0 and is_read = 0") or die(mysqli_error($conn));
+if(!$results)
+{
+    printf($conn->error);
+}
+else{
+    $unread += mysqli_num_rows($results);
+}
 
+echo "<script type='text/javascript'>
+    console.log(".$unread.");
+</script>";
 include("../../html/dashboard/viewMessage.html");
 ?>

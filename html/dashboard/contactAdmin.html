@@ -226,30 +226,6 @@
         var filled = profile_info['filled'];
         console.log(filled);
 
-        if(filled < 1) //unfilled
-        {
-            document.getElementById("unfilled").style.display = "inline";
-        }
-        else
-        {
-            if(uname == '')
-            {
-                document.getElementById("firstname").value = profile_info['first_name'];
-                document.getElementById("lastname").value = profile_info['last_name'];
-                document.getElementById("birthplace").value = profile_info['birth_place'];
-                document.getElementById("datepicker").value = profile_info['birth_date'];
-                document.getElementById("mbti").value = profile_info['mbti'];
-            }
-            else
-            {
-                document.getElementById("firstname").value = others.first_name;
-                document.getElementById("lastname").value = others.last_name;
-                document.getElementById("birthplace").value = others.birth_place;
-                document.getElementById("datepicker").value = others.birth_date;
-                document.getElementById("mbti").value = others.mbti;
-            }
-        }
-
         if(admin_flag == 0)
             admin_button.style.display = "none";
         else
