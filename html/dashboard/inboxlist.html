@@ -230,7 +230,8 @@
             var element1 = document.createElement("input"); 
 
             form.method = "POST";
-            form.action = "viewMessage.php";   
+            console.log(element.classList)
+            form.action = (is_admin == 1)? "viewMessage.php?admin=1" : (element.classList.contains("Admin"))? "viewMessage.php?admin=2" : "viewMessage.php";   
 
             element1.value = element.name;
             element1.name = "id";
