@@ -12,13 +12,13 @@ if(isset($_GET['uname']))
     if($_SESSION['status'] != 1)
     {
         echo "<script type='text/javascript'>alert('You don't have permission to edit this profile.');</script>";
-        header("location:home.php");
+        header("location:../dashboard/home.php");
     }
-    $afterloc = 'location:otheruser.php?username=' . $username;
+    $afterloc = 'location:../dashboard/otheruser.php?username=' . $username;
 }
 else {
     $username = $_SESSION['username'];
-    $afterloc = 'location:home.php';
+    $afterloc = 'location:../dashboard/home.php';
 }
 $fn = $_POST['firstname'];
 $ln = $_POST['lastname'];

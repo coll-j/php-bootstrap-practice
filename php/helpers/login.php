@@ -18,8 +18,8 @@ if($cek > 0){
     $_SESSION['username'] = $username;
     $_SESSION['password'] = $user["pass"];
     $_SESSION['status'] = $user["admin_flag"];
-    header("location:pass.php");
+    header("location:../pass.php");
 }else{
-	header("location:index.php?pesan=gagal&user=$username");
+	header("location:../index.php?pesan=gagal&user=$username");
 }
 ?>

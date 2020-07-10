@@ -11,7 +11,7 @@
 
 session_start();
 
-include 'config.php';
+include '../helpers/config.php';
 
 $user = $_SESSION['username'];
 $data = $conn->query("select * from usersdata where username='$user'");
@@ -38,7 +38,7 @@ echo "<script type='text/javascript'>
     localStorage.setItem('profiles', JSON.stringify(profiles));
 </script>";
 
-include("../html/dashboard/home.html");
+include("../../html/dashboard/home.html");
 
 ?>
 <script type="text/javascript">

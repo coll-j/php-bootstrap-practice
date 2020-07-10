@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-include 'config.php';
+include '../helpers/config.php';
 
 if(isset($_GET['username']))
 {
@@ -47,7 +47,7 @@ else
     </script>";
 }
 
-include("../html/dashboard/editprofile.html");
+include("../../html/dashboard/editprofile.html");
 
 ?>
 </html>

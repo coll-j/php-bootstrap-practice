@@ -12,7 +12,7 @@ $username = $_GET['admin'];
 $result = $conn->query("UPDATE users SET admin_flag = 1 where username='$username'");
 if($result === TRUE)
 {
-    header("location:otheruser.php?username=" . $username);
+    header("location:../dashboard/otheruser.php?username=" . $username);
 }
 else {
     echo "error" . $conn->error;

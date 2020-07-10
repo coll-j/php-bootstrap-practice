@@ -78,7 +78,7 @@
         </div>
         <div class="float-left">
             <a class="nav-link" href="adminmember.php">Member</a>
-            <a class="nav-link" href="#">Inbox</a>
+            <a class="nav-link" href="inboxlist.php">Inbox</a>
         </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -95,7 +95,7 @@
                 <a class="nav-link" href="editprofile.php">Edit Profile</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Inbox</a>
+                <a class="nav-link" href="inboxlist.php">Inbox</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Contact Admin</a>
@@ -103,11 +103,11 @@
             </ul>
             <div class="div-inline">
               <button class="btn btn-default" type="button" style="outline: none; border: none;" onclick="openSearchNav()">
-                  <img id="search-icon" src="../assets/search-black-18dp.svg" width="25px" height="25px" 
+                  <img id="search-icon" src="../../assets/search-black-18dp.svg" width="25px" height="25px" 
                   onmouseover="iconHover(this)" onmouseout="iconUnhover(this)">
               </button>
               <button class="btn btn-default" type="button" style="outline: none; border: none;" onclick="logOutClicked()">
-                <img id="exit-icon" src="../assets/exit_to_app-black-18dp.svg" width="25px" height="25px" 
+                <img id="exit-icon" src="../../assets/exit_to_app-black-18dp.svg" width="25px" height="25px" 
                 onmouseover="iconHover(this)" onmouseout="iconUnhover(this)"
                 data-toggle="tooltip" data-placement="bottom" title="Log Out">
               </button>
@@ -118,7 +118,7 @@
         <div class="container h-100 float-left ml-3" style="width: 80%;">
             <h1 class="display-3 mb-5">Welcome!</h1>
             <div class="d-inline" style="margin-right: 30px;">
-                <img id="profileImage" src="../assets/profile-Icon.png" width="350px" height="350px" class="rounded-circle d-inline" style="object-fit: cover; border: 5px solid black">
+                <img id="profileImage" src="../../assets/profile-Icon.png" width="350px" height="350px" class="rounded-circle d-inline" style="object-fit: cover; border: 5px solid black">
             </div>
             <div class="d-inline-block align-middle" style="margin-inline-start: 30px;">
                 <h4 class="p-2" id="fn">First name:</h4>
@@ -218,28 +218,28 @@
             admin_button.style.display = "block";
         
         function logOutClicked(){
-            window.location.replace("logout.php");
+            window.location.replace("../helpers/logout.php");
         }
 
         function iconHover(element){
             if(element.id == "search-icon")
             {
-                element.setAttribute('src', '../assets/search-white-18dp.svg')
+                element.setAttribute('src', '../../assets/search-white-18dp.svg')
             }
             else
             {
-                element.setAttribute('src', '../assets/exit_to_app-white-18dp.svg')
+                element.setAttribute('src', '../../assets/exit_to_app-white-18dp.svg')
             }
         }
 
         function iconUnhover(element){
             if(element.id == "search-icon")
             {
-                element.setAttribute('src', '../assets/search-black-18dp.svg')
+                element.setAttribute('src', '../../assets/search-black-18dp.svg')
             }
             else
             {
-                element.setAttribute('src', '../assets/exit_to_app-black-18dp.svg')
+                element.setAttribute('src', '../../assets/exit_to_app-black-18dp.svg')
             }
         }
 

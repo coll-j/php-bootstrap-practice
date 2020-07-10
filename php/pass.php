@@ -2,7 +2,7 @@
 
 session_start();
 
-include 'config.php';
+include 'helpers/config.php';
 
 if(isset($_POST['username']))
 {

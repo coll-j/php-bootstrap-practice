@@ -7,7 +7,7 @@
 
 <?php
 
-include 'config.php';
+include '../helpers/config.php';
 
 $results = $conn->query("select * from users where admin_flag = 1");
 
@@ -35,7 +35,7 @@ echo "<script type='text/javascript'>
     localStorage.setItem('admins', JSON.stringify(admins));
 </script>";
 
-include("../html/dashboard/adminmember.html");
+include("../../html/dashboard/adminmember.html");
 
 ?>
 </body>

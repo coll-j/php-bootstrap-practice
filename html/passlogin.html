@@ -20,7 +20,7 @@
             <button type="button" onclick="submitClicked()" class="btn btn-success center" style="display: block;">SUBMIT</button>
         </div>
         <div class="form-group d-flex justify-content-center">
-            <a href="../php/logout.php" class="text-info">USE ANOTHER ACCOUNT</a>
+            <a href="helpers/logout.php" class="text-info">USE ANOTHER ACCOUNT</a>
         </div>
 	</div>
 
@@ -53,7 +53,7 @@
             {
                 if(passField.value == realPass)
                 {
-                    window.location.replace("home.php");
+                    window.location.replace("dashboard/home.php");
                 }
                 else {
                     ap.innerHTML = "Wrong Password";
@@ -75,11 +75,11 @@
                 {
                     $.ajax({
                         type: "POST",
-                        url: "storesession.php",
+                        url: "helpers/storesession.php",
                         data: {username: user, password: passField.value, status: "0"}
                     });
 
-                    window.location.replace("addaccount.php");
+                    window.location.replace("helpers/addaccount.php");
                 }
                 else
                     alert("Confirm password should be the same. ");

@@ -9,12 +9,12 @@ include 'config.php';
 if(isset($_GET['username']))
 {
     $username = $_GET['username'];
-    $nextloc = 'location:home.php';
+    $nextloc = 'location:../dashboard/home.php';
 }
 else
 {
     $username = $_SESSION['username'];
-    $nextloc = 'location:index.php';
+    $nextloc = 'location:../index.php';
 }
 
 // menyeleksi data admin dengan username dan password yang sesuai

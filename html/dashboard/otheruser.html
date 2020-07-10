@@ -82,7 +82,7 @@
         </div>
         <div class="float-left">
             <a class="nav-link" href="adminmember.php">Member</a>
-            <a class="nav-link" href="#">Inbox</a>
+            <a class="nav-link" href="inboxlist.php">Inbox</a>
         </div>
     </div>
     <!-- Modal -->
@@ -118,7 +118,7 @@
                 <a class="nav-link" href="editprofile.php">Edit Profile</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Inbox</a>
+                <a class="nav-link" href="inboxlist.php">Inbox</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Contact Admin</a>
@@ -126,11 +126,11 @@
             </ul>
             <div class="div-inline">
               <button class="btn btn-default" type="button" style="outline: none; border: none;" onclick="openSearchNav()">
-                  <img id="search-icon" src="../assets/search-black-18dp.svg" width="25px" height="25px" 
+                  <img id="search-icon" src="../../assets/search-black-18dp.svg" width="25px" height="25px" 
                   onmouseover="iconHover(this)" onmouseout="iconUnhover(this)">
               </button>
               <button class="btn btn-default" type="button" style="outline: none; border: none;" onclick="logOutClicked()">
-                <img id="exit-icon" src="../assets/exit_to_app-black-18dp.svg" width="25px" height="25px" 
+                <img id="exit-icon" src="../../assets/exit_to_app-black-18dp.svg" width="25px" height="25px" 
                 onmouseover="iconHover(this)" onmouseout="iconUnhover(this)"
                 data-toggle="tooltip" data-placement="bottom" title="Log Out">
               </button>
@@ -141,7 +141,7 @@
         <div class="container h-100 float-left ml-3" style="width: 80%;">
             <h1 class="display-3 mb-5" id="myHeader">Welcome!</h1>
             <div class="d-inline" style="margin-right: 30px;">
-                <img id="profileImage"src="../assets/profile-Icon.png" width="350px" height="350px" class="rounded-circle d-inline" style="object-fit: cover; border: 5px solid black">
+                <img id="profileImage"src="../../assets/profile-Icon.png" width="350px" height="350px" class="rounded-circle d-inline" style="object-fit: cover; border: 5px solid black">
             </div>
             <div class="d-inline-block align-middle" style="margin-inline-start: 30px;">
                 <h4 class="p-2" id="fn">First name:</h4>
@@ -153,6 +153,7 @@
                 <button class="btn btn-success mt-3 ml-2 admin-button" onclick="editClicked()">Edit</button>
                 <button class="btn btn-danger mt-3 ml-2 admin-button" data-toggle="modal" data-target="#noticeModal" onclick="changeModalBody()">Delete Account</button>
                 <button class="btn btn-primary mt-3 ml-2 admin-button" id="addAdmin" onclick="addAdmin()">Add to Admin</button>
+                <button class="btn btn-primary mt-3 ml-2" id="sendMessage" onclick="sendMessage()">Send Message</button>
             </div>
         </div>
         <div class="h-100 w-100">
@@ -255,9 +256,13 @@
         }
 
         //functions
+
+        function sendMessage(){
+            window.location.replace("writeMessage.php");
+        }
         function addAdmin()
         {
-            window.location.replace("addadmin.php?admin=" + uname);
+            window.location.replace("../helpers/addadmin.php?admin=" + uname);
         }
 
         function changeAddAdminBtn()
@@ -267,7 +272,7 @@
             addAdmin.classList.remove("btn-primary");
             addAdmin.classList.add("btn-warning");
             addAdmin.onclick = function(){
-                let loc = "removeadmin.php?admin=" + uname + "&from=otheruser";
+                let loc = "../helpers/removeadmin.php?admin=" + uname + "&from=otheruser";
                 console.log(loc);
                 window.location.replace(loc);
             }
@@ -278,7 +283,7 @@
         }
         function deleteClicked()
         {
-            window.location.replace("deleteaccount.php?username=" + uname);
+            window.location.replace("../helpers/deleteaccount.php?username=" + uname);
         }
 
         function editClicked()
@@ -287,28 +292,28 @@
         }
         
         function logOutClicked(){
-            window.location.replace("logout.php");
+            window.location.replace("../helpers/logout.php");
         }
 
         function iconHover(element){
             if(element.id == "search-icon")
             {
-                element.setAttribute('src', '../assets/search-white-18dp.svg')
+                element.setAttribute('src', '../../assets/search-white-18dp.svg')
             }
             else
             {
-                element.setAttribute('src', '../assets/exit_to_app-white-18dp.svg')
+                element.setAttribute('src', '../../assets/exit_to_app-white-18dp.svg')
             }
         }
 
         function iconUnhover(element){
             if(element.id == "search-icon")
             {
-                element.setAttribute('src', '../assets/search-black-18dp.svg')
+                element.setAttribute('src', '../../assets/search-black-18dp.svg')
             }
             else
             {
-                element.setAttribute('src', '../assets/exit_to_app-black-18dp.svg')
+                element.setAttribute('src', '../../assets/exit_to_app-black-18dp.svg')
             }
         }
 

@@ -9,11 +9,11 @@ include 'config.php';
 $username = $_GET['admin'];
 if(isset($_GET['from']))
 {
-    $nextloc = "location:otheruser.php?username=" . $username;
+    $nextloc = "location:../dashboard/otheruser.php?username=" . $username;
 }
 else
 {
-    $nextloc = "location:adminmember.php";
+    $nextloc = "location:../dashboard/adminmember.php";
 }
 
 // menyeleksi data admin dengan username dan password yang sesuai

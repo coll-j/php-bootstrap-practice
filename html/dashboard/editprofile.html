@@ -80,7 +80,7 @@
         </div>
         <div class="float-left">
             <a class="nav-link" href="adminmember.php">Member</a>
-            <a class="nav-link" href="#">Inbox</a>
+            <a class="nav-link" href="inboxlist.php">Inbox</a>
         </div>
     </div>
     <!-- Modal -->
@@ -117,7 +117,7 @@
                 <a class="nav-link text-success" href="editprofile.php">Edit Profile</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Inbox</a>
+                <a class="nav-link" href="inboxlist.php">Inbox</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Contact Admin</a>
@@ -125,11 +125,11 @@
             </ul>
             <div class="div-inline">
               <button class="btn btn-default" type="button" style="outline: none; border: none;" onclick="openSearchNav()">
-                  <img id="search-icon" src="../assets/search-black-18dp.svg" width="25px" height="25px" 
+                  <img id="search-icon" src="../../assets/search-black-18dp.svg" width="25px" height="25px" 
                   onmouseover="iconHover(this)" onmouseout="iconUnhover(this)">
               </button>
               <button class="btn btn-default" type="button" style="outline: none; border: none;" onclick="logOutClicked()">
-                <img id="exit-icon" src="../assets/exit_to_app-black-18dp.svg" width="25px" height="25px" 
+                <img id="exit-icon" src="../../assets/exit_to_app-black-18dp.svg" width="25px" height="25px" 
                 onmouseover="iconHover(this)" onmouseout="iconUnhover(this)"
                 data-toggle="tooltip" data-placement="bottom" title="Log Out">
               </button>
@@ -314,7 +314,7 @@
 
         //functions
         function deleteClicked() {
-            window.location.replace("deleteaccount.php");
+            window.location.replace("../helpers/deleteaccount.php");
         }
 
         function submitClicked() {
@@ -322,52 +322,52 @@
             {
                 if(others.first_name == '') //punya orang, belom ada isinya
                 {
-                    document.profileform.action = "insertprofile.php?uname=" + uname;
+                    document.profileform.action = "../helpers/insertprofile.php?uname=" + uname;
                     document.getElementById("profileform").submit();
                 }
                 else
                 {
-                    document.profileform.action = "updateprofile.php?uname=" + uname;
+                    document.profileform.action = "../helpers/updateprofile.php?uname=" + uname;
                     document.getElementById("profileform").submit();
                 }
             }
             else{
                 if(filled > 0) //filled, update data
                 {
-                    document.profileform.action = "updateprofile.php";
+                    document.profileform.action = "../helpers/updateprofile.php";
                     document.getElementById("profileform").submit();
                 }
                 else
                 {
-                    document.profileform.action = "insertprofile.php";
+                    document.profileform.action = "../helpers/insertprofile.php";
                     document.getElementById("profileform").submit();
                 }
             }
         }
 
         function logOutClicked(){
-            window.location.replace("logout.php");
+            window.location.replace("../helpers/logout.php");
         }
 
         function iconHover(element){
             if(element.id == "search-icon")
             {
-                element.setAttribute('src', '../assets/search-white-18dp.svg')
+                element.setAttribute('src', '../../assets/search-white-18dp.svg')
             }
             else
             {
-                element.setAttribute('src', '../assets/exit_to_app-white-18dp.svg')
+                element.setAttribute('src', '../../assets/exit_to_app-white-18dp.svg')
             }
         }
 
         function iconUnhover(element){
             if(element.id == "search-icon")
             {
-                element.setAttribute('src', '../assets/search-black-18dp.svg')
+                element.setAttribute('src', '../../assets/search-black-18dp.svg')
             }
             else
             {
-                element.setAttribute('src', '../assets/exit_to_app-black-18dp.svg')
+                element.setAttribute('src', '../../assets/exit_to_app-black-18dp.svg')
             }
         }
 

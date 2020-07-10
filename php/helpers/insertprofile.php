@@ -26,7 +26,7 @@ else{
 
 if($result === TRUE)
 {
-    header('location:home.php');
+    header('location:../dashboard/home.php');
 }
 else{
     echo "error " . $conn->error;

@@ -94,11 +94,11 @@
             </button>
             </div>
             <div class="modal-body">
-            Remove <span id="removespan" class="text-danger"></span> from admin?
+            Remove message?
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" onclick="removeAdmin()">Remove</button>
+            <button type="button" class="btn btn-danger" id="removeMsg" onclick="removeMsg(this)">Remove</button>
             </div>
         </div>
         </div>
@@ -138,18 +138,17 @@
     </nav>
     <div class="container-fluid bg-light p-0" style="height: 100%; position: fixed;">
         <div class="container h-100 float-left ml-3" style="width: 80%;">
-            <h1 class="display-3">Admins</h1>
+            <h1 class="display-3">Inbox</h1>
             <div class="container-fluid m-0 p-0" style="margin-inline-start: 30px;">
                 <table data-toggle="table">
                     <thead class="thead-light">
                         <tr>
-                            <th data-width="200">Username</th>
-                            <th data-width="400">First name</th>
-                            <th data-width="400">Last name</th>
+                            <th data-width="250">Username</th>
+                            <th data-width="550">Subject</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody id="adminlist">
+                    <tbody id="messageList">
                     </tbody>
                 </table>
             </div>
@@ -179,22 +178,27 @@
             $(this).children().addClass('text-success');
         });
 
-        var adminList = document.getElementById("adminlist");
-        for(let i = 0; i < admins.length; i++)
+        var messageList = document.getElementById("messageList");
+        for(let i = 0; i < messages.length; i++)
         {
-            let row = adminList.insertRow();
+            let row = messageList.insertRow();
             let unamecell = row.insertCell();
-            let fnamecell = row.insertCell();
-            let lnamecell = row.insertCell();
-            let removecell = row.insertCell();
-            unamecell.innerHTML = admins[i].username;
-            fnamecell.innerHTML = admins[i].first_name;
-            lnamecell.innerHTML = admins[i].last_name;
+            let subjectcell = row.insertCell();
+            let actioncell = row.insertCell();
+            unamecell.innerHTML = messages[i].username;
+            subjectcell.innerHTML = messages[i].subject;
+            subjectcell.classList.add("font-weight-bold");
+            actioncell.classList.add("d-flex");
+            actioncell.classList.add("justify-content-center");
 
+            var viewButton = document.createElement("span");
+            viewButton.innerHTML = '<button class="btn btn-success mr-3" name="' + messages[i].id +'" onclick="viewMessage(this)">View message</button>';
+            console.log(viewButton.innerHTML);
+            actioncell.appendChild(viewButton);
             var rmButton = document.createElement("span");
-            rmButton.innerHTML = '<button class="btn btn-danger" name="' + admins[i].username +'" onclick="changeRemoveSpan(this)" data-toggle="modal" data-target="#noticeModal">Remove</button>';
+            rmButton.innerHTML = '<button class="btn btn-danger" name="' + messages[i].id +'" onclick="changeRemoveName(this)" data-toggle="modal" data-target="#noticeModal">Remove</button>';
             console.log(rmButton.innerHTML);
-            removecell.appendChild(rmButton);
+            actioncell.appendChild(rmButton);
         }
 
         
@@ -221,12 +225,39 @@
         }
         
         //functions
-        function changeRemoveSpan(element){
-            document.getElementById("removespan").innerHTML = element.name;
+        function viewMessage(element){
+            var form = document.createElement("form");
+            var element1 = document.createElement("input"); 
+
+            form.method = "POST";
+            form.action = "viewMessage.php";   
+
+            element1.value = element.name;
+            element1.name = "id";
+            form.appendChild(element1);  
+
+            document.body.appendChild(form);
+
+            form.submit();
+        }
+        function changeRemoveName(element){
+            document.getElementById("removeMsg").name = element.name;
         }
 
-        function removeAdmin(){
-            window.location.replace("../helpers/removeadmin.php?admin=" + document.getElementById("removespan").innerHTML);
+        function removeMsg(element){
+            var form = document.createElement("form");
+            var element1 = document.createElement("input"); 
+
+            form.method = "POST";
+            form.action = "../helpers/removeMessage.php";   
+
+            element1.value=element.name;
+            element1.name="id";
+            form.appendChild(element1);  
+
+            document.body.appendChild(form);
+
+            form.submit();
         }
 
         function filterFunction(){

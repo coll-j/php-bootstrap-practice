@@ -9,7 +9,7 @@
 
 session_start();
 
-include 'config.php';
+include '../helpers/config.php';
 
 $user = $_GET['username'];
 $data = $conn->query("select * from usersdata where username='$user'");
@@ -18,7 +18,7 @@ $data2 = $conn->query("select * from users where username='$user'"); //in case u
 $result2 = mysqli_fetch_array($data2);
 echo '<img style="display: none;" id="imgblob" src="data:image/jpeg;base64,'.base64_encode( $result['image'] ).'"/>';
 
-include("../html/dashboard/otheruser.html");
+include("../../html/dashboard/otheruser.html");
 
 ?>
 <script type="text/javascript">
